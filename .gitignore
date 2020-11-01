@@ -1,0 +1,7 @@
+.env
+*.log
+.phpunit*
+composer.lock
+/vendor
+/storage/logs
+/storage/google-docs
