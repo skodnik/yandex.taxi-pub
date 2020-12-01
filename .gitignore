@@ -1,7 +1,6 @@
-.env
 *.log
 .phpunit*
 composer.lock
-/vendor
-/storage/logs
-/storage/google-docs
+/app/vendor
+/app/storage/logs
+/app/storage/google-docs

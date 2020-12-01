@@ -1,14 +1,17 @@
 Парсит цены ЯндексТакси по указанному маршруту и экспортирует их в Googlesheets документ.
 
+# Вариант с Docker
+Установка docker: [get-docker](https://docs.docker.com/get-docker/)
+
 ## Установка
 ```
 $ git clone https://github.com/skodnik/yandex.taxi-pub
 $ cd yandex.taxi-pub
-$ cp .env.example .env
-$ composer install
+$ make start
 ```
 
-## Настройка в .env
+## Настройка приложения в app/.env
+> ВАЖНО! именно app/.env, а не .env
 
 В текущей версии реализована возможность указания двух POI (например - долгота: 30.273645264, широта: 59.799730961):
 - home - COORDINATE_LONGITUDE_1, COORDINATE_LATITUDE_1
@@ -22,21 +25,28 @@ $ composer install
 Загрузка данных в Google Spreadsheets невозможна без получения `credentials.json` и размещения его в директории `storage/google-docs`. Для его получения необходимо включить Google Sheets API и создать приложение. Подробнее здесь - [developers.google.com/sheets/api/quickstart/](https://developers.google.com/sheets/api/quickstart/php#step_3_set_up_the_sample)
 
 ## Запуск по расписанию:
+В контейнере:
 ```
-$ crontab -e
+# crontab -e
 */5 6-12 * * * php {{PATH_TO_SCRIPT}}/cli yandextaxi:get-data --direction=to_work --quiet >/dev/null 2>&1
 */5 17-21 * * * php {{PATH_TO_SCRIPT}}/cli yandextaxi:get-data --direction=to_home --quiet >/dev/null 2>&1
 ```
 
 ## Запуск из консоли:
+На хосте:
 ```
-$ make to-work
-$ make to-home
+$ make console c="app-php"
+```
+В контейнере:
+```
+# make help
+# make to-work
+# make to-home
 ```
 
 ## Пример результата работы
 ```
-$ make to-home
+# make to-home
 php cli yandextaxi:get-data --direction=to_home
 
 Получает данные из Яндекс.Такси
@@ -68,6 +78,21 @@ cargo             860
 ```
 
 ## Тесты:
+В контейнере:
 ```
-$ make run-tests
+# make run-tests
+```
+
+## Команды Composer:
+На хосте (пример):
+```
+$ make composer c="update"
+$ make composer c="dump-autoload"
+```
+
+## Остановка и очистка
+На хосте:
+```
+$ make down
+# rm -rf app/vendor app/composer.lock app/.phpunit.result.cache
 ```
