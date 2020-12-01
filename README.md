@@ -2,7 +2,7 @@
 
 ## Установка
 ```
-$ git clone https://github.com/skodnik/yandex.taxi-pub
+$ git clone --branch main https://github.com/skodnik/yandex.taxi-pub
 $ cd yandex.taxi-pub
 $ cp .env.example .env
 $ composer install
