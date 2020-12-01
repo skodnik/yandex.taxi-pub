@@ -1,5 +1,7 @@
 Парсит цены ЯндексТакси по указанному маршруту и экспортирует их в Googlesheets документ.
 
+[Вариант без docker здесь - в ветке main](https://github.com/skodnik/yandex.taxi-pub/tree/main)
+
 # Вариант с Docker
 Установка docker: [get-docker](https://docs.docker.com/get-docker/)
 
